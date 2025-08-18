@@ -1,11 +1,11 @@
-
+import { BrowserRouter as Router } from 'react-router-dom'
+import { AppRoutes } from '.'
 
 function App() {
-
   return (
-    <>
-    Main Version v1.0
-    </>
+    <Router>
+      <AppRoutes />
+    </Router>
   )
 }
 
