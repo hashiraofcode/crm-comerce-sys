@@ -4,14 +4,14 @@ import { blue, green } from '@mui/material/colors'
 export const lightTheme = createTheme({
   palette: {
     primary: {
-      main: green[300],
+      main: green[400],
       light: green[200],
-      dark: green[400],
+      dark: green[500],
       contrastText: 'rgba(240, 240, 240, 1)',
     },
     secondary: {
       main: blue[600],
-      light: blue[500],
+      light: blue[400],
       dark: blue[700],
       contrastText: '#fff',
     },
