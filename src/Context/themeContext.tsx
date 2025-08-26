@@ -1,11 +1,5 @@
 // HOOKS
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 // MATERIAL UI
 import { Box, ThemeProvider } from '@mui/material'
@@ -13,16 +7,19 @@ import { CssBaseline } from '@mui/material'
 //THEMES
 import { darkTheme, lightTheme } from '@/themes'
 //TYPES
-import { type ThemeContext } from '@/types'
+import type { ThemeContext, ChildrenType } from '@/types'
+
 export const ThemeAppContext = createContext<ThemeContext | null>(null)
 
-type Children = ReactNode
-
 export const AppThemeContext = () => {
-  return useContext(ThemeAppContext)
+  const context = useContext(ThemeAppContext)
+  if (!context) {
+    throw new Error('contexto do tema com problema')
+  }
+  return context
 }
 
-export const ThemeAppProvider = ({ children }: { children: Children }) => {
+export const ThemeAppProvider = ({ children }: ChildrenType) => {
   const [selectedTheme, setSelecteTheme] = useState<string | null>(null)
 
   useEffect(() => {
