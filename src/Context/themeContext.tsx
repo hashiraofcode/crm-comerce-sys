@@ -41,14 +41,9 @@ export const ThemeAppProvider = ({ children }: ChildrenType) => {
     const darkColor = darkTheme?.palette.background.default
     return (themeOption ?? 'light') === 'light' ? lightColor : darkColor
   }
-  const funcaoTest = () => {
-    console.log('say hello')
-  }
 
   return (
-    <ThemeAppContext.Provider
-      value={{ toggleTheme, selectedTheme, funcaoTest }}
-    >
+    <ThemeAppContext.Provider value={{ toggleTheme, selectedTheme }}>
       <ThemeProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
         <CssBaseline />
         <Box
