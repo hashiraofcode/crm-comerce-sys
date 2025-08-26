@@ -1,13 +1,14 @@
 import { Button } from '@mui/material'
-import { AppThemeContext } from '@/Context/themeContext'
+
+import { useDrawer } from '@/Context'
 
 export const Home = () => {
-  const { toggleTheme } = AppThemeContext()
+  const DrawerOptions = useDrawer()
   return (
     <>
       <Button
         onClick={() => {
-          toggleTheme()
+          DrawerOptions?.toggleDrawer()
         }}
       >
         Toogle Theme

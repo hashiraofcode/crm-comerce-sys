@@ -1,8 +1,8 @@
-// HOOKS
-//import { useState } from 'react'
-//TYPES
+// CONTEXT
+import { useDrawer } from '@/Context'
+//TYPES AND HOOKS
 import type { ChildrenType } from '@/types'
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode, useEffect } from 'react'
 //MUI
 import {
   Avatar,
@@ -14,15 +14,30 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
 } from '@mui/material'
 import { useTheme } from '@mui/material'
 
 export const SideBarMenu = ({ children }: ChildrenType): ReactNode => {
   const theme = useTheme()
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const DrawerOptions = useDrawer()
+  const firstOption = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (DrawerOptions && firstOption.current) {
+      firstOption.current.focus()
+    }
+  }, [DrawerOptions?.isOpen])
 
   return (
     <>
-      <Drawer variant="permanent">
+      <Drawer
+        open={DrawerOptions?.isOpen}
+        onClose={() => DrawerOptions?.toggleDrawer()}
+        variant={smDown ? 'temporary' : 'permanent'}
+        ref={firstOption}
+      >
         <Box
           width={theme.spacing(28)}
           height={'100%'}
@@ -55,7 +70,7 @@ export const SideBarMenu = ({ children }: ChildrenType): ReactNode => {
           </Box>
         </Box>
       </Drawer>
-      <Box minHeight={'100dvh'} marginLeft={theme.spacing(28)}>
+      <Box minHeight={'100dvh'} marginLeft={smDown ? 0 : theme.spacing(28)}>
         {children}
       </Box>
     </>
