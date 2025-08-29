@@ -1,23 +1,29 @@
 //HOOKS
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useState, type ReactNode } from 'react'
 
 // TYPES
-import type { ChildrenType, ContextDrawerProps } from '@/types'
+import type { ChildrenType, ContextDrawerProps, ListItemProps } from '@/types'
 
 export const DrawerContext = createContext<ContextDrawerProps | null>(null)
 
-export const useDrawer = () => {
-  const object = useContext(DrawerContext)
-  if (object) return object
-}
-
 export const DrawerProvider = ({ children }: ChildrenType): ReactNode => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [drawerListOptions, setDrawerListOptions] = useState<
+    ListItemProps[] | null
+  >(null)
+
   const toggleDrawer = () => {
     setIsOpen((prev) => !prev)
   }
+
+  const useDefineOptions = (items: ListItemProps[]) => {
+    setDrawerListOptions(items)
+  }
+
   return (
-    <DrawerContext.Provider value={{ isOpen, toggleDrawer }}>
+    <DrawerContext.Provider
+      value={{ isOpen, toggleDrawer, useDefineOptions, drawerListOptions }}
+    >
       {children}
     </DrawerContext.Provider>
   )
