@@ -1,5 +1,11 @@
 // HOOKS
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 // MATERIAL UI
 import { Box, ThemeProvider } from '@mui/material'
@@ -10,14 +16,6 @@ import { darkTheme, lightTheme } from '@/themes'
 import type { ThemeContext, ChildrenType } from '@/types'
 
 export const ThemeAppContext = createContext<ThemeContext | null>(null)
-
-export const AppThemeContext = () => {
-  const context = useContext(ThemeAppContext)
-  if (!context) {
-    throw new Error('contexto do tema com problema')
-  }
-  return context
-}
 
 export const ThemeAppProvider = ({ children }: ChildrenType) => {
   const [selectedTheme, setSelecteTheme] = useState<string | null>(null)
@@ -30,11 +28,11 @@ export const ThemeAppProvider = ({ children }: ChildrenType) => {
     localStorage.setItem('theme', selectedTheme ?? 'light')
   }, [selectedTheme])
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setSelecteTheme((prevTheme) => {
       return prevTheme === 'light' ? 'dark' : 'light'
     })
-  }
+  }, [])
 
   const BgAppColor = (themeOption: string | null): string => {
     const lightColor = lightTheme?.palette.background.default
