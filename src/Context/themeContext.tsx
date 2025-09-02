@@ -1,11 +1,5 @@
 // HOOKS
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, useCallback, useEffect, useState } from 'react'
 
 // MATERIAL UI
 import { Box, ThemeProvider } from '@mui/material'
