@@ -1,5 +1,5 @@
 // CONTEXT
-import { useDrawer } from '@/utils/index'
+import { useAppTheme, useDrawer } from '@/hooks/index'
 //TYPES
 import type { ChildrenType } from '@/types'
 //HOOKS
@@ -10,7 +10,12 @@ import {
   Box,
   Divider,
   Drawer,
+  Icon,
   List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
   useMediaQuery,
 } from '@mui/material'
 import { useTheme } from '@mui/material'
@@ -22,10 +27,15 @@ export const SideBarMenu = ({ children }: ChildrenType): ReactNode => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
   const DrawerOptions = useDrawer()
   const firstOption = useRef<HTMLDivElement | null>(null)
+  const Focus = useRef<HTMLDivElement | null>(null)
+  const themeContext = useAppTheme()
 
   useEffect(() => {
     if (DrawerOptions?.isOpen && firstOption.current) {
       firstOption.current.focus()
+    }
+    if (!DrawerOptions?.isOpen && Focus.current) {
+      Focus.current.focus()
     }
   }, [DrawerOptions?.isOpen])
 
@@ -70,9 +80,37 @@ export const SideBarMenu = ({ children }: ChildrenType): ReactNode => {
               ))}
             </List>
           </Box>
+          <Box>
+            <List component="nav" sx={{ padding: 0 }}>
+              <ListItemButton onClick={() => themeContext.toggleTheme()}>
+                <ListItemIcon>
+                  {themeContext.selectedTheme === 'light' ? (
+                    <Icon sx={{ color: '#2e2e2e' }}>dark_mode</Icon>
+                  ) : (
+                    <Icon sx={{ color: '#e7e7e7' }}>light_mode</Icon>
+                  )}
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{ fontSize: '1rem' }}
+                    >
+                      Alternar tema
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
+            </List>
+          </Box>
         </Box>
       </Drawer>
-      <Box minHeight={'100dvh'} marginLeft={smDown ? 0 : theme.spacing(28)}>
+      <Box
+        minHeight={'100dvh'}
+        marginLeft={smDown ? 0 : theme.spacing(28)}
+        ref={Focus}
+      >
         {children}
       </Box>
     </>

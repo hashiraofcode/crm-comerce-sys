@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
 // Arquivo com tipos padrões muito utilizados
-export type ChildrenType = {
+export interface ChildrenType {
   children: ReactNode
 }

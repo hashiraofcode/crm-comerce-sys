@@ -2,7 +2,13 @@
 import type { ReactNode } from 'react'
 import type { ListItemProps } from '@/types'
 //COMPONENTS
-import { ListItemButton, Icon, ListItemText, ListItemIcon } from '@mui/material'
+import {
+  ListItemButton,
+  Icon,
+  ListItemText,
+  ListItemIcon,
+  Typography,
+} from '@mui/material'
 //HOOKS
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
 
@@ -26,7 +32,13 @@ export const ListItemLink = ({
       <ListItemIcon>
         <Icon color="primary">{icon}</Icon>
       </ListItemIcon>
-      <ListItemText primary={label} />
+      <ListItemText
+        primary={
+          <Typography variant="h6" component="h2" sx={{ fontSize: '1rem' }}>
+            {label}
+          </Typography>
+        }
+      />
     </ListItemButton>
   )
 }

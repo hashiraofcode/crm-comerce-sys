@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 // Páginas
-import { Home } from '@/pages/index.ts'
+import { Dashboard } from '@/pages/index.ts'
 // CONTEXT
-import { useDrawer } from '@/utils/index'
+import { useDrawer } from '@/hooks/index'
 // TYPES
 import type { ListItemProps } from './types'
 import { useEffect } from 'react'
@@ -19,9 +19,10 @@ export const AppRoutes = () => {
       DrawerOptions.useDefineOptions(linkOptions)
     }
   }, [])
+
   return (
     <Routes>
-      <Route path="/pagina-inicial" element={<Home />} />
+      <Route path="/pagina-inicial" element={<Dashboard />} />
 
       <Route path="*" element={<Navigate to="/pagina-inicial" />} />
     </Routes>
