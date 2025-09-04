@@ -1,13 +1,10 @@
 import { SourceLayoutApp } from '@/layouts'
-import { ToolBar } from '@/components'
+import { DetailsToll } from '@/components'
 
 export const Dashboard = () => {
   return (
     <>
-      <SourceLayoutApp
-        titulo="Página Inicial"
-        toolBar={<ToolBar displayButton displayTextFiled />}
-      >
+      <SourceLayoutApp titulo="Página Inicial" toolBar={<DetailsToll />}>
         <p>Ola mundo</p>
       </SourceLayoutApp>
     </>
