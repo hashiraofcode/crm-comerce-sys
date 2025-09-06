@@ -6,6 +6,13 @@ export interface DetailsToolsProps {
   displayDeleteButton?: boolean
   displayAddButton?: boolean
 
+  //BOTÕES CARREGANDO
+  displaySaveButtonCarregando?: boolean
+  displaySaveAndBackButtonCarregando?: boolean
+  displayBackButtonCarregando?: boolean
+  displayDeleteButtonCarregando?: boolean
+  displayAddButtonCarregando?: boolean
+
   // Text from add button
   textButton?: string
 

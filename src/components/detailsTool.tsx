@@ -1,5 +1,5 @@
 // MUI
-import { Box, Button, Icon, Paper, useTheme } from '@mui/material'
+import { Box, Button, Icon, Paper, useTheme, Skeleton } from '@mui/material'
 // TYPES
 import type { DetailsToolsProps } from '@/types'
 
@@ -15,6 +15,11 @@ export const DetailsToll = ({
   onClickSave,
   onClickSaveAndBack,
   textButton = 'Novo',
+  displayAddButtonCarregando = false,
+  displayBackButtonCarregando = false,
+  displayDeleteButtonCarregando = false,
+  displaySaveAndBackButtonCarregando = false,
+  displaySaveButtonCarregando = false,
 }: DetailsToolsProps) => {
   const theme = useTheme()
   return (
@@ -31,7 +36,7 @@ export const DetailsToll = ({
         alignItems: 'center',
       }}
     >
-      {displaySaveButton && (
+      {displaySaveButton && !displaySaveButtonCarregando && (
         <Button
           variant="contained"
           onClick={() => {
@@ -42,7 +47,10 @@ export const DetailsToll = ({
           Salvar
         </Button>
       )}
-      {displaySaveAndBackButton && (
+
+      {displaySaveButtonCarregando && <Skeleton width={110} height={68} />}
+
+      {displaySaveAndBackButton && !displaySaveAndBackButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -65,7 +73,12 @@ export const DetailsToll = ({
           Salvar e voltar
         </Button>
       )}
-      {displayDeleteButton && (
+
+      {displaySaveAndBackButtonCarregando && (
+        <Skeleton width={205} height={68} />
+      )}
+
+      {displayDeleteButton && !displayDeleteButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -76,7 +89,10 @@ export const DetailsToll = ({
           Remover
         </Button>
       )}
-      {displayAddButton && (
+
+      {displayDeleteButtonCarregando && <Skeleton width={125} height={68} />}
+
+      {displayAddButton && !displayAddButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -87,7 +103,10 @@ export const DetailsToll = ({
           {textButton}
         </Button>
       )}
-      {displayBackButton && (
+
+      {displayAddButtonCarregando && <Skeleton width={99} height={68} />}
+
+      {displayBackButton && !displayBackButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -98,6 +117,7 @@ export const DetailsToll = ({
           Voltar
         </Button>
       )}
+      {displayBackButtonCarregando && <Skeleton width={110} height={68} />}
     </Box>
   )
 }
