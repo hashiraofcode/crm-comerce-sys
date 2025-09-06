@@ -1,22 +1,39 @@
 // MUI
-import { Box, Button, Icon, Paper, useTheme } from '@mui/material'
+import {
+  Box,
+  Button,
+  Icon,
+  Paper,
+  useTheme,
+  Skeleton,
+  Typography,
+  Divider,
+  useMediaQuery,
+} from '@mui/material'
 // TYPES
 import type { DetailsToolsProps } from '@/types'
 
 export const DetailsToll = ({
   displayAddButton = true,
   displayBackButton = true,
-  displayDeleteButton = true,
+  displayDeleteButton = false,
   displaySaveAndBackButton = true,
-  displaySaveButton = true,
+  displaySaveButton = false,
   onClickAddButton,
   onClickBackButton,
   onClickDeleteButton,
   onClickSave,
   onClickSaveAndBack,
   textButton = 'Novo',
+  displayAddButtonCarregando = false,
+  displayBackButtonCarregando = false,
+  displayDeleteButtonCarregando = false,
+  displaySaveAndBackButtonCarregando = false,
+  displaySaveButtonCarregando = false,
 }: DetailsToolsProps) => {
   const theme = useTheme()
+  const smDouwn = useMediaQuery(theme.breakpoints.down('sm'))
+  const mdDouwn = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <Box
       component={Paper}
@@ -31,7 +48,7 @@ export const DetailsToll = ({
         alignItems: 'center',
       }}
     >
-      {displaySaveButton && (
+      {displaySaveButton && !displaySaveButtonCarregando && (
         <Button
           variant="contained"
           onClick={() => {
@@ -39,33 +56,61 @@ export const DetailsToll = ({
           }}
           endIcon={<Icon>save</Icon>}
         >
-          Salvar
+          <Typography
+            variant="button"
+            sx={{
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            }}
+          >
+            Salvar
+          </Typography>
         </Button>
       )}
-      {displaySaveAndBackButton && (
-        <Button
-          variant="outlined"
-          onClick={() => {
-            onClickSaveAndBack?.()
-          }}
-          endIcon={
-            <Box
+
+      {displaySaveButtonCarregando && <Skeleton width={110} height={68} />}
+
+      {displaySaveAndBackButton &&
+        !displaySaveAndBackButtonCarregando &&
+        !mdDouwn && (
+          <Button
+            variant="outlined"
+            onClick={() => {
+              onClickSaveAndBack?.()
+            }}
+            endIcon={
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.1,
+                  justifyContent: 'center',
+                }}
+              >
+                <Icon sx={{ fontSize: '20px' }}>arrow_back</Icon>
+                <Icon sx={{ fontSize: '20px' }}>save</Icon>
+              </Box>
+            }
+          >
+            <Typography
+              variant="button"
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 0.1,
-                justifyContent: 'center',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
               }}
             >
-              <Icon sx={{ fontSize: '20px' }}>arrow_back</Icon>
-              <Icon sx={{ fontSize: '20px' }}>save</Icon>
-            </Box>
-          }
-        >
-          Salvar e voltar
-        </Button>
+              Salvar e voltar
+            </Typography>
+          </Button>
+        )}
+
+      {displaySaveAndBackButtonCarregando && !mdDouwn && (
+        <Skeleton width={205} height={68} />
       )}
-      {displayDeleteButton && (
+
+      {displayDeleteButton && !displayDeleteButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -73,10 +118,22 @@ export const DetailsToll = ({
           }}
           endIcon={<Icon>delete</Icon>}
         >
-          Remover
+          <Typography
+            variant="button"
+            sx={{
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            }}
+          >
+            Remover
+          </Typography>
         </Button>
       )}
-      {displayAddButton && (
+
+      {displayDeleteButtonCarregando && <Skeleton width={125} height={68} />}
+
+      {displayAddButton && !displayAddButtonCarregando && !smDouwn && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -84,10 +141,30 @@ export const DetailsToll = ({
           }}
           endIcon={<Icon>add</Icon>}
         >
-          {textButton}
+          <Typography
+            variant="button"
+            sx={{
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            }}
+          >
+            {textButton}
+          </Typography>
         </Button>
       )}
-      {displayBackButton && (
+
+      {displayAddButtonCarregando && !smDouwn && (
+        <Skeleton width={99} height={68} />
+      )}
+
+      {displayBackButton &&
+        ((displayAddButton && !smDouwn) ||
+          displayDeleteButton ||
+          (displaySaveAndBackButton && !mdDouwn) ||
+          displaySaveButton) && <Divider orientation="vertical" />}
+
+      {displayBackButton && !displayBackButtonCarregando && (
         <Button
           variant="outlined"
           onClick={() => {
@@ -95,9 +172,19 @@ export const DetailsToll = ({
           }}
           endIcon={<Icon>arrow_back</Icon>}
         >
-          Voltar
+          <Typography
+            variant="button"
+            sx={{
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            }}
+          >
+            Voltar
+          </Typography>
         </Button>
       )}
+      {displayBackButtonCarregando && <Skeleton width={110} height={68} />}
     </Box>
   )
 }
