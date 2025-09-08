@@ -12,14 +12,12 @@ import type { ThemeContext, ChildrenType } from '@/types'
 export const ThemeAppContext = createContext<ThemeContext | null>(null)
 
 export const ThemeAppProvider = ({ children }: ChildrenType) => {
-  const [selectedTheme, setSelecteTheme] = useState<string | null>(null)
+  const [selectedTheme, setSelecteTheme] = useState<string>(
+    localStorage.getItem('theme') ?? 'light',
+  )
 
   useEffect(() => {
-    setSelecteTheme(localStorage.getItem('theme') ?? 'light')
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('theme', selectedTheme ?? 'light')
+    localStorage.setItem('theme', selectedTheme)
   }, [selectedTheme])
 
   const toggleTheme = useCallback(() => {
