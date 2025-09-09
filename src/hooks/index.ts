@@ -1,2 +1,2 @@
-export * from './drawerConsumer'
+export * from './useDrawer'
 export * from './useAppTheme'
