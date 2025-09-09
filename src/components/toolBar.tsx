@@ -3,6 +3,7 @@ import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material'
 //TYPES
 import type { ToolBarProps } from '@/types/index'
 import type { ChangeEvent } from 'react'
+import { Enviroments } from '@/env'
 
 export const ToolBar = ({
   displayTextFiled = false,
@@ -32,7 +33,7 @@ export const ToolBar = ({
         {displayTextFiled && (
           <TextField
             size="small"
-            placeholder="Pesquisar..."
+            placeholder={Enviroments.INPUT_DE_BUSCA}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               onChangeTextFiled?.(e.currentTarget.value)
             }
