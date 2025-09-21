@@ -1,0 +1,5 @@
+{
+  "pessoas": [
+    { "id": 1, "name": "Juca", "surname": "Silva", "permission": "user" }
+  ]
+}
